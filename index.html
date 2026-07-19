@@ -203,23 +203,6 @@
   .ticket{ transform: scale(1); }
   .ticket:active{ transform: scale(0.97); }
   .ticket-top{ display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
-  .fav-star{
-    position:absolute;
-    top: 14px; right: 14px;
-    width: 22px; height:22px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color: var(--steel-light);
-    font-size: 15px;
-    z-index: 3;
-    transition: transform .16s cubic-bezier(0.34,1.56,0.64,1), color .16s ease;
-    cursor:pointer;
-  }
-  .fav-star:hover{ transform: scale(1.15); }
-  .fav-star.active{ color: var(--orange); transform: scale(1.1); }
-  .fav-star:active{ transform: scale(0.8); }
-  .ticket.pinned{ border-color: var(--orange); }
   .empty-search{
     text-align:center;
     padding: 50px 20px;
@@ -461,25 +444,16 @@
       </div>
       <div class="grid">
 
-        <a class="ticket" data-id="t1" data-name="KDS — TV Display" href="https://hummusfit-kds-production.up.railway.app" target="_blank" rel="noopener"><span class="fav-star" data-fav="t1">&#9733;</span>
+        <a class="ticket" data-id="t1" data-name="Kitchen Workflow" href="https://hummusfit-kds-production.up.railway.app" target="_blank" rel="noopener">
           <div class="ticket-top">
-            <span class="ticket-name">KDS — TV Display</span>
+            <span class="ticket-name">Kitchen Workflow</span>
             <span class="ticket-status status-live">Live</span>
           </div>
-          <p class="ticket-desc">Real-time meal prep status board for the kitchen TV. Station-level tracking.</p>
+          <p class="ticket-desc">Real-time meal prep status board and station control — Not Started / In Progress / Done, per meal, per station.</p>
           <div class="ticket-foot"><span>kds-production.up.railway.app</span><span class="ticket-arrow">↗</span></div>
         </a>
 
-        <a class="ticket" data-id="t2" data-name="KDS — iPad Control" href="https://hummusfit-kds-production.up.railway.app/ipad" target="_blank" rel="noopener"><span class="fav-star" data-fav="t2">&#9733;</span>
-          <div class="ticket-top">
-            <span class="ticket-name">KDS — iPad Control</span>
-            <span class="ticket-status status-live">Live</span>
-          </div>
-          <p class="ticket-desc">Update Not Started / In Progress / Done per meal, per station, from the line.</p>
-          <div class="ticket-foot"><span>/ipad</span><span class="ticket-arrow">↗</span></div>
-        </a>
-
-        <a class="ticket" data-id="t3" data-name="Prep Automation" href="https://scintillating-commitment-production-8909.up.railway.app" target="_blank" rel="noopener"><span class="fav-star" data-fav="t3">&#9733;</span>
+        <a class="ticket" data-id="t3" data-name="Prep Automation" href="https://scintillating-commitment-production-8909.up.railway.app" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">Prep Automation</span>
             <span class="ticket-status status-live">Live</span>
@@ -488,7 +462,7 @@
           <div class="ticket-foot"><span>prep-automation / app.js</span><span class="ticket-arrow">↗</span></div>
         </a>
 
-        <a class="ticket" data-id="t4" data-name="KDS Sync Sheet" href="https://docs.google.com/spreadsheets/d/1Ga-sF5PWCvKNY-BtfDuBcOAve-FvPx-YqMtXjhan2Mw" target="_blank" rel="noopener"><span class="fav-star" data-fav="t4">&#9733;</span>
+        <a class="ticket" data-id="t4" data-name="KDS Sync Sheet" href="https://docs.google.com/spreadsheets/d/1Ga-sF5PWCvKNY-BtfDuBcOAve-FvPx-YqMtXjhan2Mw" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">KDS Sync Sheet</span>
             <span class="ticket-status status-live">Live</span>
@@ -507,7 +481,7 @@
       </div>
       <div class="grid">
 
-        <a class="ticket" data-id="t5" data-name="Intelligence Engine" href="https://scintillating-commitment-production-8909.up.railway.app" target="_blank" rel="noopener"><span class="fav-star" data-fav="t5">&#9733;</span>
+        <a class="ticket" data-id="t5" data-name="Intelligence Engine" href="https://scintillating-commitment-production-8909.up.railway.app" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">Intelligence Engine</span>
             <span class="ticket-status status-nightly">6PM EDT</span>
@@ -516,7 +490,7 @@
           <div class="ticket-foot"><span>src/formula.js</span><span class="ticket-arrow">↗</span></div>
         </a>
 
-        <a class="ticket" data-id="t6" data-name="Intelligence Dashboard" href="https://scintillating-commitment-production-8909.up.railway.app/intelligence" target="_blank" rel="noopener"><span class="fav-star" data-fav="t6">&#9733;</span>
+        <a class="ticket" data-id="t6" data-name="Intelligence Dashboard" href="https://scintillating-commitment-production-8909.up.railway.app/intelligence" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">Intelligence Dashboard</span>
             <span class="ticket-status status-live">Live</span>
@@ -525,7 +499,7 @@
           <div class="ticket-foot"><span>/intelligence</span><span class="ticket-arrow">↗</span></div>
         </a>
 
-        <a class="ticket" data-id="t7" data-name="Station Assignment" href="https://docs.google.com/spreadsheets/d/1RPMZIlTlZtSXQYDb-cjGUbSeeamiHcYNCaV6DglGiJM/edit?gid=1333113364#gid=1333113364" target="_blank" rel="noopener"><span class="fav-star" data-fav="t7">&#9733;</span>
+        <a class="ticket" data-id="t7" data-name="Station Assignment" href="https://docs.google.com/spreadsheets/d/1RPMZIlTlZtSXQYDb-cjGUbSeeamiHcYNCaV6DglGiJM/edit?gid=1333113364#gid=1333113364" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">Station Assignment</span>
             <span class="ticket-status status-live">Live</span>
@@ -534,7 +508,7 @@
           <div class="ticket-foot"><span>Google Sheets</span><span class="ticket-arrow">↗</span></div>
         </a>
 
-        <a class="ticket" data-id="t8" data-name="HummusFit Inventory Entry" href="https://docs.google.com/spreadsheets/d/1VSNtHtIN87bMrQlfFUPvaSQqGQWE9g6hAu0EgXAGVsU/edit?gid=1775886722#gid=1775886722" target="_blank" rel="noopener"><span class="fav-star" data-fav="t8">&#9733;</span>
+        <a class="ticket" data-id="t8" data-name="HummusFit Inventory Entry" href="https://docs.google.com/spreadsheets/d/1VSNtHtIN87bMrQlfFUPvaSQqGQWE9g6hAu0EgXAGVsU/edit?gid=1775886722#gid=1775886722" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">HummusFit Inventory Entry</span>
             <span class="ticket-status status-live">Live</span>
@@ -543,7 +517,7 @@
           <div class="ticket-foot"><span>Google Sheets</span><span class="ticket-arrow">↗</span></div>
         </a>
 
-        <a class="ticket" data-id="t9" data-name="Shopify Admin" href="https://myhummusfit.myshopify.com/admin" target="_blank" rel="noopener"><span class="fav-star" data-fav="t9">&#9733;</span>
+        <a class="ticket" data-id="t9" data-name="Shopify Admin" href="https://myhummusfit.myshopify.com/admin" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">Shopify Admin</span>
             <span class="ticket-status status-live">Live</span>
@@ -552,23 +526,14 @@
           <div class="ticket-foot"><span>myhummusfit.myshopify.com</span><span class="ticket-arrow">↗</span></div>
         </a>
 
-        <div class="ticket" data-id="t10" data-name="Inventory Target" style="cursor:default;"><span class="fav-star" data-fav="t10">&#9733;</span>
-          <div class="ticket-top">
-            <span class="ticket-name">Inventory Target</span>
-            <span class="ticket-status status-manual">Reference</span>
-          </div>
-          <p class="ticket-desc">Operating band: 18,000–20,000 total units. Zero stockouts, no expiration.</p>
-          <div class="ticket-foot"><span>Standing target</span><span></span></div>
-        </div>
-
-        <div class="ticket" data-id="t11" data-name="Hummus Fit FIFO" style="cursor:default;"><span class="fav-star" data-fav="t11">&#9733;</span>
+        <a class="ticket" data-id="t11" data-name="Hummus Fit FIFO" href="https://web-production-524d8.up.railway.app/fifo" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">Hummus Fit FIFO</span>
-            <span class="ticket-status status-manual">SOP</span>
+            <span class="ticket-status status-live">Live</span>
           </div>
-          <p class="ticket-desc">Date everything on receipt. Oldest stock and prepped sauces/meals used first — never top off an old container with new.</p>
-          <div class="ticket-foot"><span>Rotation protocol</span><span></span></div>
-        </div>
+          <p class="ticket-desc">Live FIFO rotation tracker. Oldest stock and prepped sauces/meals used first.</p>
+          <div class="ticket-foot"><span>web-production-524d8.up.railway.app/fifo</span><span class="ticket-arrow">↗</span></div>
+        </a>
 
       </div>
     </section>
@@ -584,7 +549,7 @@
       </div>
       <div class="grid">
 
-        <a class="ticket" data-id="t12" data-name="Buffin Muffin Tracker" href="https://docs.google.com/spreadsheets/d/1rm0BZqBwomp4CwrWXzrpNICPiw6Y7MiKzAwig3sD1AY/edit?gid=1141091135#gid=1141091135" target="_blank" rel="noopener"><span class="fav-star" data-fav="t12">&#9733;</span>
+        <a class="ticket" data-id="t12" data-name="Buffin Muffin Tracker" href="https://docs.google.com/spreadsheets/d/1rm0BZqBwomp4CwrWXzrpNICPiw6Y7MiKzAwig3sD1AY/edit?gid=1141091135#gid=1141091135" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">Buffin Muffin Tracker</span>
             <span class="ticket-status status-live">Live</span>
@@ -593,7 +558,7 @@
           <div class="ticket-foot"><span>Google Sheets</span><span class="ticket-arrow">↗</span></div>
         </a>
 
-        <div class="ticket" data-id="t13" data-name="Buffin Bakery Blueprint" style="cursor:default;"><span class="fav-star" data-fav="t13">&#9733;</span>
+        <div class="ticket" data-id="t13" data-name="Buffin Bakery Blueprint" style="cursor:default;">
           <div class="ticket-top">
             <span class="ticket-name">Buffin Bakery Blueprint</span>
             <span class="ticket-status status-manual">Manual</span>
@@ -602,7 +567,7 @@
           <div class="ticket-foot"><span>Add link when hosted</span><span></span></div>
         </div>
 
-        <div class="ticket" data-id="t14" data-name="Buffin Bakery FIFO" style="cursor:default;"><span class="fav-star" data-fav="t14">&#9733;</span>
+        <div class="ticket" data-id="t14" data-name="Buffin Bakery FIFO" style="cursor:default;">
           <div class="ticket-top">
             <span class="ticket-name">Buffin Bakery FIFO</span>
             <span class="ticket-status status-manual">SOP</span>
@@ -624,16 +589,7 @@
       </div>
       <div class="grid">
 
-        <div class="ticket" data-id="t15" data-name="Overnight Oats Bundles" style="cursor:default;"><span class="fav-star" data-fav="t15">&#9733;</span>
-          <div class="ticket-top">
-            <span class="ticket-name">Overnight Oats Bundles</span>
-            <span class="ticket-status status-manual">Reference</span>
-          </div>
-          <p class="ticket-desc">Independent bakery bundle discount tiers, built alongside Buffin Muffin tiers.</p>
-          <div class="ticket-foot"><span>Shopify Function</span><span></span></div>
-        </div>
-
-        <a class="ticket" data-id="t16" data-name="Oats &amp; Snacks Sheet" href="https://docs.google.com/spreadsheets/d/1VVAxc30ZV8EWwivtUJUP28niEUR2ffvKIyWCtBiuamc/edit?gid=900872253#gid=900872253" target="_blank" rel="noopener"><span class="fav-star" data-fav="t16">&#9733;</span>
+        <a class="ticket" data-id="t16" data-name="Oats &amp; Snacks Sheet" href="https://docs.google.com/spreadsheets/d/1VVAxc30ZV8EWwivtUJUP28niEUR2ffvKIyWCtBiuamc/edit?gid=900872253#gid=900872253" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">Oats &amp; Snacks Sheet</span>
             <span class="ticket-status status-live">Live</span>
@@ -655,7 +611,7 @@
       </div>
       <div class="grid">
 
-        <a class="ticket" data-id="t17" data-name="Fleet Tracker" href="https://hummusfit-fleet-tracker-production.up.railway.app" target="_blank" rel="noopener"><span class="fav-star" data-fav="t17">&#9733;</span>
+        <a class="ticket" data-id="t17" data-name="Fleet Tracker" href="https://hummusfit-fleet-tracker-production.up.railway.app" target="_blank" rel="noopener">
           <div class="ticket-top">
             <span class="ticket-name">Fleet Tracker</span>
             <span class="ticket-status status-live">Live</span>
@@ -683,6 +639,7 @@
     <button class="music-skip" id="musicPrev" title="Previous track" aria-label="Previous track">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 20L9 12l10-8v16z" fill="currentColor"/><rect x="5" y="4" width="2" height="16" fill="currentColor"/></svg>
     </button>
+    <button class="music-skip" id="musicPlayPause" title="Play/Pause" aria-label="Play or pause" style="font-size:13px;">▶</button>
     <button class="music-skip" id="musicNext" title="Next track" aria-label="Next track">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 4l10 8-10 8V4z" fill="currentColor"/><rect x="17" y="4" width="2" height="16" fill="currentColor"/></svg>
     </button>
@@ -792,42 +749,6 @@
     }
   });
 
-  /* ---------- FAVORITES ---------- */
-  var favs = {};
-  try{ favs = JSON.parse(localStorage.getItem('opshub_favs') || '{}'); }catch(e){ favs = {}; }
-
-  function paintFavs(){
-    document.querySelectorAll('.fav-star').forEach(function(star){
-      var key = star.dataset.fav;
-      star.classList.toggle('active', !!favs[key]);
-    });
-    document.querySelectorAll('.ticket').forEach(function(t){
-      t.classList.toggle('pinned', !!favs[t.dataset.id]);
-    });
-    // re-sort favorited tickets to the top of each grid
-    document.querySelectorAll('.grid').forEach(function(grid){
-      var items = Array.from(grid.children);
-      items.sort(function(a, b){
-        var aFav = favs[a.dataset.id] ? 1 : 0;
-        var bFav = favs[b.dataset.id] ? 1 : 0;
-        return bFav - aFav;
-      });
-      items.forEach(function(item){ grid.appendChild(item); });
-    });
-  }
-  paintFavs();
-
-  document.querySelectorAll('.fav-star').forEach(function(star){
-    star.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      var key = star.dataset.fav;
-      favs[key] = !favs[key];
-      try{ localStorage.setItem('opshub_favs', JSON.stringify(favs)); }catch(err){}
-      paintFavs();
-    });
-  });
-
   /* ---------- RECENTLY USED ---------- */
   var recentBar = document.getElementById('recentBar');
   var recentLabel = document.getElementById('recentLabel');
@@ -882,10 +803,7 @@
 
   renderRecent();
 
-  /* ---------- BACKGROUND MUSIC (YouTube playlist) ---------- */
-  // Swap this for your real playlist ID. Find it in a YouTube playlist URL:
-  // https://www.youtube.com/playlist?list=PLxxxxxxxxxxxxxxxx
-  //                                        ^^^^^^^^^^^^^^^^^^ this part
+  /* ---------- BACKGROUND MUSIC (YouTube playlist, shuffled, auto-start) ---------- */
   var YT_PLAYLIST_ID = 'OLAK5uy_mPYOt_uVxrBA2bjpVkQvWWMVQMzMxAwZM';
 
   var musicBtn = document.getElementById('musicBtn');
@@ -895,10 +813,10 @@
   var musicTitle = document.getElementById('musicTitle');
   var musicPrev = document.getElementById('musicPrev');
   var musicNext = document.getElementById('musicNext');
-  var musicKey = 'opshub_music_playing';
+  var musicPlayPause = document.getElementById('musicPlayPause');
   var ytPlayer = null;
   var ytReady = false;
-  var wantsPlayOnReady = false;
+  var hasUnmuted = false;
 
   function setPlayingUI(isPlaying){
     musicBtn.classList.toggle('playing', isPlaying);
@@ -906,6 +824,7 @@
     musicBars.style.display = isPlaying ? 'block' : 'none';
     musicBtn.title = isPlaying ? 'Pause background music' : 'Play background music';
     musicPanel.classList.toggle('show', isPlaying);
+    if(musicPlayPause){ musicPlayPause.textContent = isPlaying ? '⏸' : '▶'; }
   }
 
   function updateTrackTitle(){
@@ -928,7 +847,7 @@
       playerVars: {
         listType: 'playlist',
         list: YT_PLAYLIST_ID,
-        autoplay: 0,
+        autoplay: 1,
         mute: 1,
         controls: 0,
         loop: 1
@@ -936,63 +855,74 @@
       events: {
         onReady: function(){
           ytReady = true;
-          if(wantsPlayOnReady){ startMusic(); }
+          try{ ytPlayer.setShuffle(true); }catch(e){}
+          // Autoplay muted immediately — this is allowed by all browsers
+          ytPlayer.playVideo();
+          setPlayingUI(true);
         },
         onStateChange: function(e){
-          // 1 = playing
           if(e.data === 1){ updateTrackTitle(); }
         }
       }
     });
   };
 
-  function startMusic(){
-    if(!ytReady || !ytPlayer){ wantsPlayOnReady = true; return; }
-    ytPlayer.unMute();
-    ytPlayer.setVolume(35);
-    ytPlayer.playVideo();
-    setPlayingUI(true);
-    setTimeout(updateTrackTitle, 500);
-    try{ localStorage.setItem(musicKey, '1'); }catch(e){}
+  // The moment the visitor interacts with the page at all (click, tap, keypress),
+  // unmute automatically so music is actually audible — no need to hunt for the button.
+  function unmuteOnFirstInteraction(){
+    if(hasUnmuted || !ytPlayer) return;
+    hasUnmuted = true;
+    try{
+      ytPlayer.unMute();
+      ytPlayer.setVolume(35);
+      setPlayingUI(true);
+    }catch(e){}
   }
+  document.addEventListener('click', unmuteOnFirstInteraction, { once: true });
+  document.addEventListener('keydown', unmuteOnFirstInteraction, { once: true });
+  document.addEventListener('touchstart', unmuteOnFirstInteraction, { once: true });
 
-  function stopMusic(){
-    if(ytPlayer){ ytPlayer.pauseVideo(); }
-    setPlayingUI(false);
-    try{ localStorage.setItem(musicKey, '0'); }catch(e){}
-  }
-
-  musicBtn.addEventListener('click', function(){
+  function togglePlayPause(){
+    if(!ytPlayer) return;
+    hasUnmuted = true;
     if(musicBtn.classList.contains('playing')){
-      stopMusic();
+      ytPlayer.pauseVideo();
+      setPlayingUI(false);
     } else {
-      startMusic();
+      ytPlayer.unMute();
+      ytPlayer.setVolume(35);
+      ytPlayer.playVideo();
+      setPlayingUI(true);
     }
+  }
+
+  musicBtn.addEventListener('click', function(e){
+    e.stopPropagation();
+    togglePlayPause();
   });
 
-  musicPrev.addEventListener('click', function(){
+  if(musicPlayPause){
+    musicPlayPause.addEventListener('click', function(e){
+      e.stopPropagation();
+      togglePlayPause();
+    });
+  }
+
+  musicPrev.addEventListener('click', function(e){
+    e.stopPropagation();
     if(ytPlayer && typeof ytPlayer.previousVideo === 'function'){
       ytPlayer.previousVideo();
       setTimeout(updateTrackTitle, 500);
     }
   });
 
-  musicNext.addEventListener('click', function(){
+  musicNext.addEventListener('click', function(e){
+    e.stopPropagation();
     if(ytPlayer && typeof ytPlayer.nextVideo === 'function'){
       ytPlayer.nextVideo();
       setTimeout(updateTrackTitle, 500);
     }
   });
-
-  // Resume automatically on return visits, once the user interacts with the page
-  // (browsers require a user gesture before unmuted audio can play)
-  if(localStorage.getItem(musicKey) === '1'){
-    var resumeOnce = function(){
-      startMusic();
-      document.removeEventListener('click', resumeOnce);
-    };
-    document.addEventListener('click', resumeOnce);
-  }
 </script>
 
 </body>
