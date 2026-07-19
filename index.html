@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hummus Fit — Ops Hub</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230B0B0A'/%3E%3Ctext x='50' y='68' font-family='Arial Black,sans-serif' font-size='58' font-weight='900' text-anchor='middle' fill='%232BBFAA'%3EH%3C/text%3E%3Ccircle cx='78' cy='24' r='9' fill='%23E8612C'/%3E%3C/svg%3E">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -276,6 +278,66 @@
   }
 
   @media (prefers-reduced-motion: reduce){ .eyebrow::before{ animation:none; } .ticket, .tab, .group{ transition:none; } }
+
+  /* ---------- RECENTLY USED ---------- */
+  .recent-wrap{
+    max-width: 720px;
+  }
+  .recent-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color: var(--dim);
+    margin: 0 0 8px;
+    display:none;
+  }
+  .recent-label.show{ display:block; }
+  .recent-bar{
+    display:none;
+    gap: 10px;
+    overflow-x:auto;
+    padding-bottom: 14px;
+    margin-bottom: 6px;
+  }
+  .recent-bar.has-items{ display:flex; }
+  .recent-chip{
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    gap:7px;
+    background: var(--paper);
+    border: 1px solid var(--steel);
+    border-radius: 999px;
+    padding: 7px 14px 7px 10px;
+    font-family:'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight:600;
+    color: var(--ink);
+    text-decoration:none;
+    white-space:nowrap;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .recent-chip:hover{ border-color: var(--teal); transform: translateY(-1px); }
+  .recent-chip .dot{ width:5px; height:5px; border-radius:50%; background: var(--teal); flex-shrink:0; }
+
+  /* ---------- STAGGERED ENTRANCE ---------- */
+  .ticket{ opacity:0; animation: ticketIn .42s cubic-bezier(0.22,1,0.36,1) forwards; }
+  @keyframes ticketIn{ from{ opacity:0; transform: translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+  .grid .ticket:nth-child(1){ animation-delay: .00s; }
+  .grid .ticket:nth-child(2){ animation-delay: .04s; }
+  .grid .ticket:nth-child(3){ animation-delay: .08s; }
+  .grid .ticket:nth-child(4){ animation-delay: .12s; }
+  .grid .ticket:nth-child(5){ animation-delay: .16s; }
+  .grid .ticket:nth-child(6){ animation-delay: .20s; }
+  .grid .ticket:nth-child(7){ animation-delay: .24s; }
+  .grid .ticket:nth-child(8){ animation-delay: .28s; }
+  .grid .ticket:nth-child(9){ animation-delay: .32s; }
+  .grid .ticket:nth-child(n+10){ animation-delay: .34s; }
+
+  @media (prefers-reduced-motion: reduce){
+    .ticket{ animation:none; opacity:1; }
+  }
 </style>
 </head>
 <body>
@@ -297,6 +359,10 @@
     <button class="tab active" data-group="hf">Hummus Fit</button>
     <button class="tab" data-group="bm">Buffin Muffin</button>
     <button class="tab" data-group="oa">Oats &amp; Snacks</button>
+  </div>
+  <div class="recent-wrap">
+    <div class="recent-label" id="recentLabel">Recently Used</div>
+    <div class="recent-bar" id="recentBar"></div>
   </div>
 </header>
 
@@ -509,19 +575,23 @@
   var tabColors = { hf: '', bm: 'orange', oa: 'gold' };
   var tabs = document.querySelectorAll('.tab');
   var groups = document.querySelectorAll('.group');
-  tabs.forEach(function(tab){
-    tab.addEventListener('click', function(){
-      var key = tab.dataset.group;
-      tabs.forEach(function(t){
-        t.classList.remove('active','orange','gold');
-      });
-      tab.classList.add('active');
-      var c = tabColors[key];
-      if(c) tab.classList.add(c);
-      groups.forEach(function(g){ g.classList.toggle('active', g.dataset.group === key); });
-      window.scrollTo({top:0, behavior:'smooth'});
-      filterSearch(searchInput.value);
+
+  function setActive(key){
+    tabs.forEach(function(t){
+      t.classList.remove('active','orange','gold');
+      if(t.dataset.group === key){
+        t.classList.add('active');
+        var c = tabColors[key];
+        if(c) t.classList.add(c);
+      }
     });
+    groups.forEach(function(g){ g.classList.toggle('active', g.dataset.group === key); });
+    window.scrollTo({top:0, behavior:'smooth'});
+    if(typeof searchInput !== 'undefined'){ filterSearch(searchInput.value); }
+  }
+
+  tabs.forEach(function(tab){
+    tab.addEventListener('click', function(){ setActive(tab.dataset.group); });
   });
 
   /* ---------- SEARCH ---------- */
@@ -604,6 +674,60 @@
       paintFavs();
     });
   });
+
+  /* ---------- RECENTLY USED ---------- */
+  var recentBar = document.getElementById('recentBar');
+  var recentLabel = document.getElementById('recentLabel');
+  var recentKey = 'opshub_recent';
+  var groupOf = {}; // data-id -> group key
+  document.querySelectorAll('.group').forEach(function(g){
+    g.querySelectorAll('.ticket[data-id]').forEach(function(t){
+      groupOf[t.dataset.id] = g.dataset.group;
+    });
+  });
+
+  function getRecent(){
+    try{ return JSON.parse(localStorage.getItem(recentKey) || '[]'); }catch(e){ return []; }
+  }
+  function saveRecent(list){
+    try{ localStorage.setItem(recentKey, JSON.stringify(list)); }catch(e){}
+  }
+  function renderRecent(){
+    var list = getRecent();
+    recentBar.innerHTML = '';
+    if(list.length === 0){
+      recentBar.classList.remove('has-items');
+      recentLabel.classList.remove('show');
+      return;
+    }
+    recentBar.classList.add('has-items');
+    recentLabel.classList.add('show');
+    list.forEach(function(item){
+      var chip = document.createElement('a');
+      chip.className = 'recent-chip';
+      chip.href = item.href;
+      chip.target = '_blank';
+      chip.rel = 'noopener';
+      chip.innerHTML = '<span class="dot"></span>' + item.name;
+      chip.addEventListener('click', function(){
+        var g = groupOf[item.id];
+        if(g){ setActive(g); }
+      });
+      recentBar.appendChild(chip);
+    });
+  }
+
+  document.querySelectorAll('.ticket[href]').forEach(function(t){
+    t.addEventListener('click', function(){
+      var list = getRecent().filter(function(item){ return item.id !== t.dataset.id; });
+      list.unshift({ id: t.dataset.id, name: t.dataset.name, href: t.getAttribute('href') });
+      list = list.slice(0, 4);
+      saveRecent(list);
+      renderRecent();
+    });
+  });
+
+  renderRecent();
 </script>
 
 </body>
