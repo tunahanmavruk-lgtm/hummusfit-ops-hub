@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hummus Fit — Ops Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#F2EFE9;
+    --void:#0B0B0A;
+    --void-2:#151513;
+    --paper:#1B1A17;
+    --teal:#2BBFAA;
+    --orange:#E8612C;
+    --steel:#3A3A38;
+    --steel-light:#57554F;
+    --dim:#9A968C;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{background:var(--void); color:var(--ink); font-family:'Montserrat',sans-serif;}
+  body{
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(255,255,255,0.035) 1px, transparent 0);
+    background-size: 22px 22px;
+    padding: 0 0 80px;
+  }
+
+  ::selection{ background:var(--orange); color:var(--void); }
+
+  /* ---------- HEADER ---------- */
+  header{
+    padding: 56px 6vw 40px;
+    border-bottom: 1px solid var(--steel);
+    position: relative;
+    overflow:hidden;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--teal);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom: 18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background: var(--teal);
+    border-radius:50%;
+    box-shadow: 0 0 8px var(--teal);
+    animation: pulse 2.2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{ opacity:1; }
+    50%{ opacity:0.35; }
+  }
+  h1{
+    font-family:'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 9vw, 118px);
+    line-height: 0.88;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  h1 span{ color: var(--orange); }
+  .subhead{
+    max-width: 560px;
+    margin-top: 20px;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--dim);
+  }
+  .ticket-time{
+    position:absolute;
+    top:56px; right:6vw;
+    font-family:'JetBrains Mono', monospace;
+    font-size:12px;
+    color: var(--steel-light);
+    text-align:right;
+    line-height:1.7;
+    display:none;
+  }
+  @media (min-width: 760px){ .ticket-time{ display:block; } }
+
+  /* ---------- RAIL / STATIONS ---------- */
+  main{ padding: 0 6vw; }
+
+  .station{
+    margin-top: 64px;
+  }
+  .station-head{
+    display:flex;
+    align-items:baseline;
+    gap: 14px;
+    margin-bottom: 22px;
+    padding-bottom: 12px;
+    border-bottom: 1px dashed var(--steel);
+  }
+  .station-tag{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing:0.18em;
+    color: var(--void);
+    background: var(--teal);
+    padding: 4px 9px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    white-space:nowrap;
+  }
+  .station-tag.hot{ background: var(--orange); }
+  .station-title{
+    font-family:'Bebas Neue', sans-serif;
+    font-size: 30px;
+    letter-spacing:0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+  }
+  .station-note{
+    font-size: 12.5px;
+    color: var(--dim);
+    margin-left: auto;
+    font-family:'JetBrains Mono', monospace;
+    display:none;
+  }
+  @media (min-width: 640px){ .station-note{ display:block; } }
+
+  .grid{
+    display:grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
+  }
+
+  /* ---------- TICKET CARD ---------- */
+  .ticket{
+    position: relative;
+    background: var(--paper);
+    border: 1px solid var(--steel);
+    border-radius: 2px;
+    padding: 20px 20px 18px;
+    text-decoration: none;
+    color: var(--ink);
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+    transition: border-color .18s ease, transform .18s ease, background .18s ease;
+    cursor:pointer;
+  }
+  .ticket:hover{
+    border-color: var(--teal);
+    transform: translateY(-2px);
+    background: #201F1B;
+  }
+  .ticket:focus-visible{
+    outline: 2px solid var(--teal);
+    outline-offset: 3px;
+  }
+  .ticket::before{
+    /* perforated edge */
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:-1px;
+    height:1px;
+    background-image: repeating-linear-gradient(90deg, var(--steel) 0 6px, transparent 6px 12px);
+  }
+  .ticket-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:10px;
+  }
+  .ticket-name{
+    font-family:'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing:0.01em;
+    line-height:1.05;
+    text-transform: uppercase;
+  }
+  .ticket-status{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing:0.1em;
+    text-transform: uppercase;
+    padding: 3px 7px;
+    border-radius: 2px;
+    white-space: nowrap;
+    flex-shrink:0;
+    margin-top: 3px;
+  }
+  .status-live{ color: var(--teal); border:1px solid var(--teal); }
+  .status-manual{ color: var(--dim); border:1px solid var(--steel-light); }
+  .status-blocked{ color: var(--orange); border:1px solid var(--orange); }
+
+  .ticket-desc{
+    font-size: 12.5px;
+    line-height:1.55;
+    color: var(--dim);
+  }
+  .ticket-foot{
+    margin-top: auto;
+    padding-top: 10px;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--steel-light);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .ticket-arrow{
+    color: var(--teal);
+    transition: transform .18s ease;
+  }
+  .ticket:hover .ticket-arrow{ transform: translateX(3px); }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    margin-top: 80px;
+    padding: 30px 6vw 0;
+    border-top: 1px solid var(--steel);
+    font-family:'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--steel-light);
+    display:flex;
+    flex-wrap:wrap;
+    gap: 8px 24px;
+    justify-content:space-between;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .eyebrow::before{ animation:none; }
+    .ticket{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="ticket-time" id="clock">LINE OPEN<br><span id="clockval">--:--:--</span></div>
+  <div class="eyebrow">Ronkonkoma HQ / All Stations</div>
+  <h1>OPS <span>HUB</span></h1>
+  <p class="subhead">Every system you've built, on one rail. Kitchen, inventory, bakery, e-com, and marketing — pick a ticket, it opens the tool.</p>
+</header>
+
+<main>
+
+  <!-- STATION 1: KITCHEN -->
+  <section class="station">
+    <div class="station-head">
+      <span class="station-tag hot">STATION 01</span>
+      <span class="station-title">Kitchen Ops</span>
+      <span class="station-note">// real-time prep &amp; display</span>
+    </div>
+    <div class="grid">
+
+      <a class="ticket" href="https://hummusfit-kds-production.up.railway.app" target="_blank" rel="noopener">
+        <div class="ticket-top">
+          <span class="ticket-name">KDS — TV Display</span>
+          <span class="ticket-status status-live">Live</span>
+        </div>
+        <p class="ticket-desc">Real-time meal prep status board for the kitchen TV. Station-level tracking.</p>
+        <div class="ticket-foot"><span>kds-production.up.railway.app</span><span class="ticket-arrow">↗</span></div>
+      </a>
+
+      <a class="ticket" href="https://hummusfit-kds-production.up.railway.app/ipad" target="_blank" rel="noopener">
+        <div class="ticket-top">
+          <span class="ticket-name">KDS — iPad Control</span>
+          <span class="ticket-status status-live">Live</span>
+        </div>
+        <p class="ticket-desc">Update Not Started / In Progress / Done per meal, per station, from the line.</p>
+        <div class="ticket-foot"><span>/ipad</span><span class="ticket-arrow">↗</span></div>
+      </a>
+
+      <a class="ticket" href="https://scintillating-commitment-production-8909.up.railway.app" target="_blank" rel="noopener">
+        <div class="ticket-top">
+          <span class="ticket-name">Prep Automation</span>
+          <span class="ticket-status status-live">Live</span>
+        </div>
+        <p class="ticket-desc">Core Railway app — nightly Shopify pull, batch calc, blueprint generation.</p>
+        <div class="ticket-foot"><span>prep-automation / app.js</span><span class="ticket-arrow">↗</span></div>
+      </a>
+
+      <a class="ticket" href="https://docs.google.com/spreadsheets/d/1Ga-sF5PWCvKNY-BtfDuBcOAve-FvPx-YqMtXjhan2Mw" target="_blank" rel="noopener">
+        <div class="ticket-top">
+          <span class="ticket-name">KDS Sync Sheet</span>
+          <span class="ticket-status status-live">Live</span>
+        </div>
+        <p class="ticket-desc">Mirrors the blueprint — one row per meal, synced via the KDS bot service account.</p>
+        <div class="ticket-foot"><span>Google Sheets</span><span class="ticket-arrow">↗</span></div>
+      </a>
+
+      <a class="ticket" href="https://github.com/tunahanmavruk-lgtm/hummusfit-prep" target="_blank" rel="noopener">
+        <div class="ticket-top">
+          <span class="ticket-name">Prep Repo</span>
+          <span class="ticket-status status-manual">Reference</span>
+        </div>
+        <p class="ticket-desc">Source for the prep automation app — formula.js, PDF gen, Cloudinary push.</p>
+        <div class="ticket-foot"><span>GitHub</span><span class="ticket-arrow">↗</span></div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- STATION 2: INVENTORY & BLUEPRINT -->
+  <section class="station">
+    <div class="station-head">
+      <span class="station-tag">STATION 02</span>
+      <span class="station-title">Inventory, Blueprint &amp; Intelligence</span>
+      <span class="station-note">// forecasting, stockout &amp; expiration control</span>
+    </div>
+    <div class="grid">
+
+      <a class="ticket" href="https://scintillating-commitment-production-8909.up.railway.app" target="_blank" rel="noopener">
+        <div class="ticket-top">
+          <span class="ticket-name">Intelligence Engine</span>
+          <span class="ticket-status status-live">6PM EDT</span>
+        </div>
+        <p class="ticket-desc">Nightly stockout-forecasting run — pulls live Shopify data, applies cap/carry/multiplier formulas, targets zero stockouts.</p>
+        <div class="ticket-foot"><span>src/formula.js</span><span class="ticket-arrow">↗</span></div>
+      </a>
+
+      <a class="ticket" href="https://cloudinary.com/console" target="_blank" rel="noopener">
+        <div class="ticket-top">
+          <span class="ticket-name">Cloudinary — Blueprint PDFs</span>
+          <span class="ticket-status status-blocked">Check upload type</span>
+        </div>
+        <p class="ticket-desc">Manual override storage for blueprint PDFs. Upload as Raw, not Image.</p>
+        <div class="ticket-foot"><span>cloudinary.com</span><span class="ticket-arrow">↗</span></div>
+      </a>
+
+      <div class="ticket" style="cursor:default;">
+        <div class="ticket-top">
+          <span class="ticket-name">Inventory Target</span>
+          <span class="ticket-status status-manual">Reference</span>
+        </div>
+        <p class="ticket-desc">Operating band: 18,000–20,000 total units. Zero stockouts, no expiration.</p>
+        <div class="ticket-foot"><span>Standing target</span><span></span></div>
+      </div>
+
+      <div class="ticket" style="cursor:default;">
+        <div class="ticket-top">
+          <span class="ticket-name">Hummus Fit FIFO</span>
+          <span class="ticket-status status-manual">SOP</span>
+        </div>
+        <p class="ticket-desc">Date everything on receipt. Oldest stock and prepped sauces/meals used first — never top off an old container with new.</p>
+        <div class="ticket-foot"><span>Rotation protocol</span><span></span></div>
+      </div>
+
+      <div class="ticket" style="cursor:default;">
+        <div class="ticket-top">
+          <span class="ticket-name">Buffin Bakery FIFO</span>
+          <span class="ticket-status status-manual">SOP</span>
+        </div>
+        <p class="ticket-desc">Baked goods and snack stock rotated oldest-first by bake date; discard past use-by, no exceptions.</p>
+        <div class="ticket-foot"><span>Rotation protocol</span><span></span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STATION 3: BAKERY & SUB-BRANDS -->
+  <section class="station">
+    <div class="station-head">
+      <span class="station-tag">STATION 03</span>
+      <span class="station-title">Buffin Bakery &amp; Sub-Brands</span>
+      <span class="station-note">// baked goods / snacks</span>
+    </div>
+    <div class="grid">
+
+      <div class="ticket" style="cursor:default;">
+        <div class="ticket-top">
+          <span class="ticket-name">Buffin Bakery Blueprint</span>
+          <span class="ticket-status status-manual">Manual</span>
+        </div>
+        <p class="ticket-desc">Muffins &amp; protein snack production tracking — folds into the nightly blueprint run.</p>
+        <div class="ticket-foot"><span>Add link when hosted</span><span></span></div>
+      </div>
+
+      <div class="ticket" style="cursor:default;">
+        <div class="ticket-top">
+          <span class="ticket-name">Overnight Oats Bundles</span>
+          <span class="ticket-status status-manual">Reference</span>
+        </div>
+        <p class="ticket-desc">Independent bakery bundle discount tiers, built alongside Buffin Muffin tiers.</p>
+        <div class="ticket-foot"><span>Shopify Function</span><span></span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STATION 4: E-COMMERCE -->
+  <section class="station">
+    <div class="station-head">
+      <span class="station-tag">STATION 04</span>
+      <span class="station-title">E-Commerce</span>
+      <span class="station-note">// Shopify</span>
+    </div>
+    <div class="grid">
+
+      <a class="ticket" href="https://myhummusfit.myshopify.com/admin" target="_blank" rel="noopener">
+        <div class="ticket-top">
+          <span class="ticket-name">Shopify Admin</span>
+          <span class="ticket-status status-live">Live</span>
+        </div>
+        <p class="ticket-desc">Store dashboard — orders, products, discount functions, inventory sync source.</p>
+        <div class="ticket-foot"><span>myhummusfit.myshopify.com</span><span class="ticket-arrow">↗</span></div>
+      </a>
+
+    </div>
+  </section>
+
+
+</main>
+
+<footer>
+  <span>HUMMUS FIT / OPS HUB</span>
+  <span>RONKONKOMA, NY</span>
+  <span id="footdate">—</span>
+</footer>
+
+<script>
+  function pad(n){ return n.toString().padStart(2,'0'); }
+  function tick(){
+    const d = new Date();
+    const el = document.getElementById('clockval');
+    if(el) el.textContent = pad(d.getHours())+':'+pad(d.getMinutes())+':'+pad(d.getSeconds());
+    const fd = document.getElementById('footdate');
+    if(fd) fd.textContent = d.toLocaleDateString('en-US', {weekday:'short', year:'numeric', month:'short', day:'numeric'});
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,15 @@
+{
+  "name": "hummusfit-ops-hub",
+  "version": "1.0.0",
+  "description": "Hummus Fit Ops Hub — launcher for kitchen, inventory, bakery, and e-commerce tools",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
