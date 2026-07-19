@@ -322,8 +322,8 @@
   .recent-chip .dot{ width:5px; height:5px; border-radius:50%; background: var(--teal); flex-shrink:0; }
 
   /* ---------- STAGGERED ENTRANCE ---------- */
-  .ticket{ opacity:0; animation: ticketIn .42s cubic-bezier(0.22,1,0.36,1) forwards; }
-  @keyframes ticketIn{ from{ opacity:0; transform: translateY(10px);} to{ opacity:1; transform:translateY(0);} }
+  .ticket{ opacity:0; animation: ticketIn .5s cubic-bezier(0.22,1,0.36,1) forwards; }
+  @keyframes ticketIn{ from{ opacity:0; transform: translateY(18px) scale(0.97);} to{ opacity:1; transform:translateY(0) scale(1);} }
   .grid .ticket:nth-child(1){ animation-delay: .00s; }
   .grid .ticket:nth-child(2){ animation-delay: .04s; }
   .grid .ticket:nth-child(3){ animation-delay: .08s; }
@@ -335,8 +335,90 @@
   .grid .ticket:nth-child(9){ animation-delay: .32s; }
   .grid .ticket:nth-child(n+10){ animation-delay: .34s; }
 
+  /* ---------- MUSIC TOGGLE ---------- */
+  .music-btn{
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 100;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--paper);
+    border: 1px solid var(--steel);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.4);
+    transition: border-color .18s ease, transform .18s ease, background .18s ease;
+  }
+  .music-btn:hover{ border-color: var(--teal); transform: translateY(-2px); }
+  .music-btn svg{ color: var(--dim); transition: color .18s ease; }
+  .music-btn.playing{ background: var(--teal); border-color: var(--teal); }
+  .music-btn.playing svg{ color: var(--void); }
+  .music-btn.playing .bar{ animation: musicBar 0.8s ease-in-out infinite; }
+  .music-btn .bar:nth-child(2){ animation-delay: -0.6s; }
+  .music-btn .bar:nth-child(3){ animation-delay: -0.3s; }
+  @keyframes musicBar{
+    0%, 100%{ transform: scaleY(0.4); }
+    50%{ transform: scaleY(1); }
+  }
+  /* ---------- MUSIC PLAYER PANEL ---------- */
+  .music-panel{
+    position: fixed;
+    right: 20px;
+    bottom: 84px;
+    z-index: 100;
+    width: 240px;
+    background: var(--paper);
+    border: 1px solid var(--steel);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.45);
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .music-panel.show{ display:flex; }
+  .music-panel-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    letter-spacing:0.15em;
+    text-transform:uppercase;
+    color: var(--dim);
+  }
+  .music-panel-title{
+    font-size: 13px;
+    font-weight:600;
+    color: var(--ink);
+    line-height:1.3;
+    max-height: 2.6em;
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+  .music-panel-controls{
+    display:flex;
+    align-items:center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+  .music-skip{
+    width: 34px; height: 34px;
+    border-radius: 50%;
+    background: var(--void);
+    border: 1px solid var(--steel);
+    color: var(--ink);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    transition: border-color .15s ease, transform .15s ease;
+  }
+  .music-skip:hover{ border-color: var(--teal); transform: translateY(-1px); }
+  .music-skip:active{ transform: scale(0.92); }
+
   @media (prefers-reduced-motion: reduce){
-    .ticket{ animation:none; opacity:1; }
+    .music-btn.playing .bar{ animation:none; }
   }
 </style>
 </head>
@@ -359,6 +441,7 @@
     <button class="tab active" data-group="hf">Hummus Fit</button>
     <button class="tab" data-group="bm">Buffin Muffin</button>
     <button class="tab" data-group="oa">Oats &amp; Snacks</button>
+    <button class="tab" data-group="tr">Transportation</button>
   </div>
   <div class="recent-wrap">
     <div class="recent-label" id="recentLabel">Recently Used</div>
@@ -563,6 +646,28 @@
     </section>
   </div>
 
+  <!-- TRANSPORTATION -->
+  <div class="group" data-group="tr">
+    <section class="station">
+      <div class="station-head">
+        <span class="station-title">Transportation</span>
+        <span class="station-note">// live fleet tracking</span>
+      </div>
+      <div class="grid">
+
+        <a class="ticket" data-id="t17" data-name="Fleet Tracker" href="https://hummusfit-fleet-tracker-production.up.railway.app" target="_blank" rel="noopener"><span class="fav-star" data-fav="t17">&#9733;</span>
+          <div class="ticket-top">
+            <span class="ticket-name">Fleet Tracker</span>
+            <span class="ticket-status status-live">Live</span>
+          </div>
+          <p class="ticket-desc">Live vehicle map — powered by Bouncie. Speed, fuel, and last known location per vehicle.</p>
+          <div class="ticket-foot"><span>hummusfit-fleet-tracker</span><span class="ticket-arrow">↗</span></div>
+        </a>
+
+      </div>
+    </section>
+  </div>
+
   <div class="empty-search" id="emptySearch">No tools match your search.</div>
 </main>
 
@@ -571,12 +676,45 @@
   <span>RONKONKOMA, NY</span>
 </footer>
 
+<div class="music-panel" id="musicPanel">
+  <div class="music-panel-label">Now Playing</div>
+  <div class="music-panel-title" id="musicTitle">Tap play to start</div>
+  <div class="music-panel-controls">
+    <button class="music-skip" id="musicPrev" title="Previous track" aria-label="Previous track">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M19 20L9 12l10-8v16z" fill="currentColor"/><rect x="5" y="4" width="2" height="16" fill="currentColor"/></svg>
+    </button>
+    <button class="music-skip" id="musicNext" title="Next track" aria-label="Next track">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M5 4l10 8-10 8V4z" fill="currentColor"/><rect x="17" y="4" width="2" height="16" fill="currentColor"/></svg>
+    </button>
+  </div>
+</div>
+
+<button class="music-btn" id="musicBtn" title="Play background music" aria-label="Toggle background music">
+  <svg id="musicIcon" width="20" height="20" viewBox="0 0 24 24" fill="none">
+    <path d="M9 18V5l12-2v13" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="6" cy="18" r="3" stroke="currentColor" stroke-width="2"/>
+    <circle cx="18" cy="16" r="3" stroke="currentColor" stroke-width="2"/>
+  </svg>
+  <svg id="musicBars" width="20" height="20" viewBox="0 0 24 24" style="display:none;">
+    <rect class="bar" x="4" y="9" width="3" height="6" fill="currentColor" rx="1"/>
+    <rect class="bar" x="10.5" y="4" width="3" height="16" fill="currentColor" rx="1"/>
+    <rect class="bar" x="17" y="7" width="3" height="10" fill="currentColor" rx="1"/>
+  </svg>
+</button>
+<audio id="bgMusic" loop preload="none">
+  <source src="bg-music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- Hidden YouTube player for background playlist. Swap PLAYLIST_ID below
+     for your real playlist ID (see ADD-MUSIC.md for how to find it). -->
+<div id="ytPlayer" style="position:absolute; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none;"></div>
+
 <script>
-  var tabColors = { hf: '', bm: 'orange', oa: 'gold' };
+  var tabColors = { hf: '', bm: 'orange', oa: 'gold', tr: 'orange' };
   var tabs = document.querySelectorAll('.tab');
   var groups = document.querySelectorAll('.group');
 
-  function setActive(key){
+  function setActive(key, skipScroll){
     tabs.forEach(function(t){
       t.classList.remove('active','orange','gold');
       if(t.dataset.group === key){
@@ -586,13 +724,28 @@
       }
     });
     groups.forEach(function(g){ g.classList.toggle('active', g.dataset.group === key); });
-    window.scrollTo({top:0, behavior:'smooth'});
+    if(!skipScroll){ window.scrollTo({top:0, behavior:'smooth'}); }
     if(typeof searchInput !== 'undefined'){ filterSearch(searchInput.value); }
+
+    // Replay the card entrance animation every time this tab becomes active
+    var activeGroup = document.querySelector('.group[data-group="' + key + '"]');
+    if(activeGroup){
+      var cards = activeGroup.querySelectorAll('.ticket');
+      cards.forEach(function(card){
+        card.style.animation = 'none';
+        // force reflow so the browser "forgets" the animation ran, then restart it
+        void card.offsetHeight;
+        card.style.animation = '';
+      });
+    }
   }
 
   tabs.forEach(function(tab){
     tab.addEventListener('click', function(){ setActive(tab.dataset.group); });
   });
+
+  // Play it once on initial load too
+  setActive('hf', true);
 
   /* ---------- SEARCH ---------- */
   var searchBar = document.getElementById('searchBar');
@@ -728,6 +881,118 @@
   });
 
   renderRecent();
+
+  /* ---------- BACKGROUND MUSIC (YouTube playlist) ---------- */
+  // Swap this for your real playlist ID. Find it in a YouTube playlist URL:
+  // https://www.youtube.com/playlist?list=PLxxxxxxxxxxxxxxxx
+  //                                        ^^^^^^^^^^^^^^^^^^ this part
+  var YT_PLAYLIST_ID = 'OLAK5uy_mPYOt_uVxrBA2bjpVkQvWWMVQMzMxAwZM';
+
+  var musicBtn = document.getElementById('musicBtn');
+  var musicIcon = document.getElementById('musicIcon');
+  var musicBars = document.getElementById('musicBars');
+  var musicPanel = document.getElementById('musicPanel');
+  var musicTitle = document.getElementById('musicTitle');
+  var musicPrev = document.getElementById('musicPrev');
+  var musicNext = document.getElementById('musicNext');
+  var musicKey = 'opshub_music_playing';
+  var ytPlayer = null;
+  var ytReady = false;
+  var wantsPlayOnReady = false;
+
+  function setPlayingUI(isPlaying){
+    musicBtn.classList.toggle('playing', isPlaying);
+    musicIcon.style.display = isPlaying ? 'none' : 'block';
+    musicBars.style.display = isPlaying ? 'block' : 'none';
+    musicBtn.title = isPlaying ? 'Pause background music' : 'Play background music';
+    musicPanel.classList.toggle('show', isPlaying);
+  }
+
+  function updateTrackTitle(){
+    if(!ytPlayer || typeof ytPlayer.getVideoData !== 'function') return;
+    try{
+      var data = ytPlayer.getVideoData();
+      if(data && data.title){ musicTitle.textContent = data.title; }
+    }catch(e){}
+  }
+
+  // Load the YouTube IFrame API asynchronously
+  var ytScript = document.createElement('script');
+  ytScript.src = 'https://www.youtube.com/iframe_api';
+  document.head.appendChild(ytScript);
+
+  window.onYouTubeIframeAPIReady = function(){
+    ytPlayer = new YT.Player('ytPlayer', {
+      height: '1',
+      width: '1',
+      playerVars: {
+        listType: 'playlist',
+        list: YT_PLAYLIST_ID,
+        autoplay: 0,
+        mute: 1,
+        controls: 0,
+        loop: 1
+      },
+      events: {
+        onReady: function(){
+          ytReady = true;
+          if(wantsPlayOnReady){ startMusic(); }
+        },
+        onStateChange: function(e){
+          // 1 = playing
+          if(e.data === 1){ updateTrackTitle(); }
+        }
+      }
+    });
+  };
+
+  function startMusic(){
+    if(!ytReady || !ytPlayer){ wantsPlayOnReady = true; return; }
+    ytPlayer.unMute();
+    ytPlayer.setVolume(35);
+    ytPlayer.playVideo();
+    setPlayingUI(true);
+    setTimeout(updateTrackTitle, 500);
+    try{ localStorage.setItem(musicKey, '1'); }catch(e){}
+  }
+
+  function stopMusic(){
+    if(ytPlayer){ ytPlayer.pauseVideo(); }
+    setPlayingUI(false);
+    try{ localStorage.setItem(musicKey, '0'); }catch(e){}
+  }
+
+  musicBtn.addEventListener('click', function(){
+    if(musicBtn.classList.contains('playing')){
+      stopMusic();
+    } else {
+      startMusic();
+    }
+  });
+
+  musicPrev.addEventListener('click', function(){
+    if(ytPlayer && typeof ytPlayer.previousVideo === 'function'){
+      ytPlayer.previousVideo();
+      setTimeout(updateTrackTitle, 500);
+    }
+  });
+
+  musicNext.addEventListener('click', function(){
+    if(ytPlayer && typeof ytPlayer.nextVideo === 'function'){
+      ytPlayer.nextVideo();
+      setTimeout(updateTrackTitle, 500);
+    }
+  });
+
+  // Resume automatically on return visits, once the user interacts with the page
+  // (browsers require a user gesture before unmuted audio can play)
+  if(localStorage.getItem(musicKey) === '1'){
+    var resumeOnce = function(){
+      startMusic();
+      document.removeEventListener('click', resumeOnce);
+    };
+    document.addEventListener('click', resumeOnce);
+  }
 </script>
 
 </body>
