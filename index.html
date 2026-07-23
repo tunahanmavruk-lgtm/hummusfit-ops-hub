@@ -425,6 +425,7 @@
     <button class="tab" data-group="bm">Buffin Muffin</button>
     <button class="tab" data-group="oa">Oats &amp; Snacks</button>
     <button class="tab" data-group="tr">Transportation</button>
+    <button class="tab" data-group="st">Stores</button>
   </div>
   <div class="recent-wrap">
     <div class="recent-label" id="recentLabel">Recently Used</div>
@@ -606,6 +607,28 @@
     </section>
   </div>
 
+  <!-- STORES -->
+  <div class="group" data-group="st">
+    <section class="station">
+      <div class="station-head">
+        <span class="station-title">Stores</span>
+        <span class="station-note">// live sales by location</span>
+      </div>
+      <div class="grid">
+
+        <a class="ticket" data-id="t18" data-name="Store Race Tracker" href="https://hummusfit-stores-tracker-production.up.railway.app" target="_blank" rel="noopener">
+          <div class="ticket-top">
+            <span class="ticket-name">Store Race Tracker</span>
+            <span class="ticket-status status-live">Live</span>
+          </div>
+          <p class="ticket-desc">Live daily sales race — all 14 store locations plus Online, ranked in real time.</p>
+          <div class="ticket-foot"><span>hummusfit-stores-tracker</span><span class="ticket-arrow">↗</span></div>
+        </a>
+
+      </div>
+    </section>
+  </div>
+
   <div class="empty-search" id="emptySearch">No tools match your search.</div>
 </main>
 
@@ -649,7 +672,7 @@
 <div id="ytPlayer" style="position:absolute; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none;"></div>
 
 <script>
-  var tabColors = { hf: '', bm: 'orange', oa: 'gold', tr: 'orange' };
+  var tabColors = { hf: '', bm: 'orange', oa: 'gold', tr: 'orange', st: 'gold' };
   var tabs = document.querySelectorAll('.tab');
   var groups = document.querySelectorAll('.group');
 
