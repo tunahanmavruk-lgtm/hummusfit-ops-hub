@@ -422,10 +422,10 @@
   </div>
   <div class="tabs" id="tabs">
     <button class="tab active" data-group="hf">Hummus Fit</button>
-    <button class="tab" data-group="bm">Buffin Muffin</button>
-    <button class="tab" data-group="oa">Oats &amp; Snacks</button>
+    <button class="tab" data-group="bm">Buffin Muffin &amp; Oats</button>
     <button class="tab" data-group="tr">Transportation</button>
     <button class="tab" data-group="st">Stores</button>
+    <button class="tab" data-group="sh">Shipping</button>
   </div>
   <div class="recent-wrap">
     <div class="recent-label" id="recentLabel">Recently Used</div>
@@ -518,6 +518,15 @@
           <div class="ticket-foot"><span>web-production-524d8.up.railway.app/fifo</span><span class="ticket-arrow">↗</span></div>
         </a>
 
+        <a class="ticket" data-id="t20" data-name="Production Hub" href="https://tunahanmavruk-lgtm.github.io/hummus-fit-production-hub/" target="_blank" rel="noopener">
+          <div class="ticket-top">
+            <span class="ticket-name">Production Hub</span>
+            <span class="ticket-status status-live">Live</span>
+          </div>
+          <p class="ticket-desc">Production tracking and packaging workflow.</p>
+          <div class="ticket-foot"><span>hummus-fit-production-hub</span><span class="ticket-arrow">↗</span></div>
+        </a>
+
       </div>
     </section>
 
@@ -527,7 +536,7 @@
   <div class="group" data-group="bm">
     <section class="station">
       <div class="station-head">
-        <span class="station-title">Buffin Muffin Operations</span>
+        <span class="station-title">Buffin Muffins</span>
         <span class="station-note">// baked goods production &amp; tracking</span>
       </div>
       <div class="grid">
@@ -561,13 +570,10 @@
 
       </div>
     </section>
-  </div>
 
-  <!-- OATS & SNACKS -->
-  <div class="group" data-group="oa">
     <section class="station">
       <div class="station-head">
-        <span class="station-title">Oats And Snacks Operations</span>
+        <span class="station-title">Oats &amp; Snacks</span>
         <span class="station-note">// overnight oats &amp; snack bundles</span>
       </div>
       <div class="grid">
@@ -629,6 +635,28 @@
     </section>
   </div>
 
+  <!-- SHIPPING -->
+  <div class="group" data-group="sh">
+    <section class="station">
+      <div class="station-head">
+        <span class="station-title">Shipping</span>
+        <span class="station-note">// supplies &amp; packaging orders</span>
+      </div>
+      <div class="grid">
+
+        <a class="ticket" data-id="t19" data-name="Supplies Inventory &amp; Uline Orders" href="https://tunahanmavruk-lgtm.github.io/hummus-fit-shipping-board/" target="_blank" rel="noopener">
+          <div class="ticket-top">
+            <span class="ticket-name">Supplies Inventory &amp; Uline Orders</span>
+            <span class="ticket-status status-live">Live</span>
+          </div>
+          <p class="ticket-desc">Shipping supplies inventory tracking and Uline order board.</p>
+          <div class="ticket-foot"><span>hummus-fit-shipping-board</span><span class="ticket-arrow">↗</span></div>
+        </a>
+
+      </div>
+    </section>
+  </div>
+
   <div class="empty-search" id="emptySearch">No tools match your search.</div>
 </main>
 
@@ -672,7 +700,7 @@
 <div id="ytPlayer" style="position:absolute; width:1px; height:1px; overflow:hidden; opacity:0; pointer-events:none;"></div>
 
 <script>
-  var tabColors = { hf: '', bm: 'orange', oa: 'gold', tr: 'orange', st: 'gold' };
+  var tabColors = { hf: '', bm: 'orange', tr: 'orange', st: 'gold', sh: 'gold' };
   var tabs = document.querySelectorAll('.tab');
   var groups = document.querySelectorAll('.group');
 
