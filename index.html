@@ -262,48 +262,6 @@
 
   @media (prefers-reduced-motion: reduce){ .eyebrow::before{ animation:none; } .ticket, .tab, .group{ transition:none; } }
 
-  /* ---------- RECENTLY USED ---------- */
-  .recent-wrap{
-    max-width: 720px;
-  }
-  .recent-label{
-    font-family:'JetBrains Mono', monospace;
-    font-size: 10px;
-    letter-spacing:0.15em;
-    text-transform:uppercase;
-    color: var(--dim);
-    margin: 0 0 8px;
-    display:none;
-  }
-  .recent-label.show{ display:block; }
-  .recent-bar{
-    display:none;
-    gap: 10px;
-    overflow-x:auto;
-    padding-bottom: 14px;
-    margin-bottom: 6px;
-  }
-  .recent-bar.has-items{ display:flex; }
-  .recent-chip{
-    flex-shrink:0;
-    display:flex;
-    align-items:center;
-    gap:7px;
-    background: var(--paper);
-    border: 1px solid var(--steel);
-    border-radius: 999px;
-    padding: 7px 14px 7px 10px;
-    font-family:'Montserrat', sans-serif;
-    font-size: 12px;
-    font-weight:600;
-    color: var(--ink);
-    text-decoration:none;
-    white-space:nowrap;
-    transition: border-color .15s ease, transform .15s ease;
-  }
-  .recent-chip:hover{ border-color: var(--teal); transform: translateY(-1px); }
-  .recent-chip .dot{ width:5px; height:5px; border-radius:50%; background: var(--teal); flex-shrink:0; }
-
   /* ---------- STAGGERED ENTRANCE ---------- */
   .ticket{ opacity:0; animation: ticketIn .5s cubic-bezier(0.22,1,0.36,1) forwards; }
   @keyframes ticketIn{ from{ opacity:0; transform: translateY(18px) scale(0.97);} to{ opacity:1; transform:translateY(0) scale(1);} }
@@ -426,10 +384,7 @@
     <button class="tab" data-group="tr">Transportation</button>
     <button class="tab" data-group="st">Stores</button>
     <button class="tab" data-group="sh">Shipping</button>
-  </div>
-  <div class="recent-wrap">
-    <div class="recent-label" id="recentLabel">Recently Used</div>
-    <div class="recent-bar" id="recentBar"></div>
+    <button class="tab" data-group="mk">Marketing</button>
   </div>
 </header>
 
@@ -721,6 +676,27 @@
     </section>
   </div>
 
+  <div class="group" data-group="mk">
+    <section class="station">
+      <div class="station-head">
+        <span class="station-title">Marketing</span>
+        <span class="station-note">// internal marketing operating system</span>
+      </div>
+      <div class="grid">
+
+        <a class="ticket" data-id="t27" data-name="HF OS" href="https://web-staging-8bca.up.railway.app" target="_blank" rel="noopener">
+          <div class="ticket-top">
+            <span class="ticket-name">HF OS</span>
+            <span class="ticket-status status-live">Live</span>
+          </div>
+          <p class="ticket-desc">The internal marketing operating system for Hummus Fit and Buffin Bakery.</p>
+          <div class="ticket-foot"><span>web-staging-8bca</span><span class="ticket-arrow">↗</span></div>
+        </a>
+
+      </div>
+    </section>
+  </div>
+
   <div class="empty-search" id="emptySearch">No tools match your search.</div>
 </main>
 
@@ -845,60 +821,6 @@
       searchInput.blur();
     }
   });
-
-  /* ---------- RECENTLY USED ---------- */
-  var recentBar = document.getElementById('recentBar');
-  var recentLabel = document.getElementById('recentLabel');
-  var recentKey = 'opshub_recent';
-  var groupOf = {}; // data-id -> group key
-  document.querySelectorAll('.group').forEach(function(g){
-    g.querySelectorAll('.ticket[data-id]').forEach(function(t){
-      groupOf[t.dataset.id] = g.dataset.group;
-    });
-  });
-
-  function getRecent(){
-    try{ return JSON.parse(localStorage.getItem(recentKey) || '[]'); }catch(e){ return []; }
-  }
-  function saveRecent(list){
-    try{ localStorage.setItem(recentKey, JSON.stringify(list)); }catch(e){}
-  }
-  function renderRecent(){
-    var list = getRecent();
-    recentBar.innerHTML = '';
-    if(list.length === 0){
-      recentBar.classList.remove('has-items');
-      recentLabel.classList.remove('show');
-      return;
-    }
-    recentBar.classList.add('has-items');
-    recentLabel.classList.add('show');
-    list.forEach(function(item){
-      var chip = document.createElement('a');
-      chip.className = 'recent-chip';
-      chip.href = item.href;
-      chip.target = '_blank';
-      chip.rel = 'noopener';
-      chip.innerHTML = '<span class="dot"></span>' + item.name;
-      chip.addEventListener('click', function(){
-        var g = groupOf[item.id];
-        if(g){ setActive(g); }
-      });
-      recentBar.appendChild(chip);
-    });
-  }
-
-  document.querySelectorAll('.ticket[href]').forEach(function(t){
-    t.addEventListener('click', function(){
-      var list = getRecent().filter(function(item){ return item.id !== t.dataset.id; });
-      list.unshift({ id: t.dataset.id, name: t.dataset.name, href: t.getAttribute('href') });
-      list = list.slice(0, 4);
-      saveRecent(list);
-      renderRecent();
-    });
-  });
-
-  renderRecent();
 
   /* ---------- BACKGROUND MUSIC (YouTube playlist, shuffled, auto-start) ---------- */
   var YT_PLAYLIST_ID = 'OLAK5uy_mPYOt_uVxrBA2bjpVkQvWWMVQMzMxAwZM';
